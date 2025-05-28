@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Test 1{% endblock %}
+
+{% block content %}
+<section class="test-container">
+    <h1 class="page-title">Test 1: Basic Greetings</h1>
+
+    <form action="{{ url_for('test') }}" method="POST" class="test-form">
+        {% set questions = [
+            "Hello (informal/singular)",
+            "Hello (formal/plural)",
+            "How are you (informal/singular)",
+            "How are you? (formal/plural)",
+            "We are well",
+            "I am well too"
+        ] %}
+
+        {% for question in questions %}
+        <div class="form-group">
+            <label for="question-{{ loop.index }}">{{ loop.index }}. {{ question }}</label>
+            <input type="text" id="question-{{ loop.index }}" name="question-{{ loop.index }}" 
+                   class="form-control" required
+                   {% if user_answers is defined and user_answers|length > loop.index0 %}
+                   value="{{ user_answers[loop.index0] }}"
+                   {% endif %}>
+        </div>
+        {% endfor %}
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-submit">Submit Answers</button>
+            {% if score is defined and score is not none %}
+            <div class="score-display {% if score >= 4 %}score-good{% else %}score-bad{% endif %}">
+                Score: {{ score }}/{{ questions|length }}
+            </div>
+            {% endif %}
+        </div>
+    </form>
+
+    {% if score is defined and score is not none %}
+    <div class="test-feedback">
+        <h3>Feedback:</h3>
+        {% if score >= 4 %}
+        <p class="feedback-good">Well done! You're making great progress in IsiZulu greetings.</p>
+        {% else %}
+        <p class="feedback-improve">Good attempt! Review the dictionary and try again.</p>
+        {% endif %}
+        <a href="{{ url_for('dictionary') }}" class="btn btn-review">
+            <i class="fas fa-book"></i> Review Dictionary
+        </a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

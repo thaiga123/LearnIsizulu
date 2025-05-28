@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Dictionary{% endblock %}
+
+{% block content %}
+<section class="dictionary-container">
+    <h1 class="page-title">IsiZulu Dictionary</h1>
+    
+    <div class="search-box">
+        <input type="text" placeholder="Search for words..." id="dictionary-search">
+        <button><i class="fas fa-search"></i></button>
+    </div>
+
+    <div class="week-accordion">
+        {% for week in [
+            {"title": "Week 1: Introduction", "words": [
+                {"zulu": "Sawubona", "english": "Hello (informal/singular)"},
+                {"zulu": "Sanibona", "english": "Hello (formal/plural)"},
+                {"zulu": "Ninjani?", "english": "How are you? (formal/plural)"},
+                {"zulu": "Siyaphila", "english": "We are well"},
+                {"zulu": "Ngiyaphila nami", "english": "I am well too"},
+                {"zulu": "Ngiyabonga", "english": "Thank you"},
+                {"zulu": "Ngiyacela", "english": "Please"},
+                {"zulu": "Amanzi", "english": "Water"},
+                {"zulu": "Utshwala", "english": "Alcohol"},
+                {"zulu": "Ushukela", "english": "Sugar"},
+                {"zulu": "Angiwuthandi ushukela omningi", "english": "I don't like too much sugar", "pronunciation": "Angi-wu-thandi ushu-gela um-ningi"}
+            ]},
+            {"title": "Week 2: Verbs", "words": [
+                {"zulu": "Khuluma", "english": "Speak"},
+                {"zulu": "Pheka", "english": "Cook"},
+                {"zulu": "Funda", "english": "Read/Study"},
+                {"zulu": "Hlala", "english": "Sit"},
+                {"zulu": "Lala", "english": "Sleep"}
+            ]},
+            {"title": "Week 3: Prefixes", "words": [
+                {"zulu": "Ngi-", "english": "I"},
+                {"zulu": "U-", "english": "he/she/you"},
+                {"zulu": "Ba-", "english": "they"},
+                {"zulu": "Si-", "english": "we"},
+                {"zulu": "Ni-", "english": "you (plural)"},
+                {"zulu": "I-", "english": "it"}
+            ]},
+            {"title": "Week 4: Using Prefixes", "words": [
+                {"zulu": "Uyafunda", "english": "You are learning (singular)"},
+                {"zulu": "Niyafunda", "english": "You are learning (plural)"},
+                {"zulu": "Ngiyafunda", "english": "I am learning"},
+                {"zulu": "Uyafunda", "english": "She/He is learning"},
+                {"zulu": "Bayafunda", "english": "They are learning"},
+                {"zulu": "Siyafunda", "english": "We are learning"},
+                {"zulu": "Iyafunda", "english": "It is learning"}
+            ]},
+            {"title": "Week 5: Useful Phrases", "words": [
+                {"zulu": "Ngikhathele", "english": "I am tired"},
+                {"zulu": "Ngiyozela/Ngiyazela", "english": "I am sleepy"},
+                {"zulu": "Ngilambile", "english": "I am hungry"},
+                {"zulu": "Angilambile", "english": "I am not hungry"},
+                {"zulu": "Ngomile", "english": "I am thirsty"},
+                {"zulu": "Ngiyadla", "english": "I eat / I am eating"},
+                {"zulu": "Uyaphi?", "english": "Where are you going?"},
+                {"zulu": "Uphi uAndrew? / Ulaphi uAndrew", "english": "Where is Andrew?"},
+                {"zulu": "U-Andrew uya eposini", "english": "Andrew is going to the post office"},
+                {"zulu": "Uza nini?", "english": "When are you coming?"},
+                {"zulu": "Ikhaya lakho likuphi?", "english": "Where is your home?"}
+            ]}
+        ] %}
+        <div class="accordion-item">
+            <button class="accordion-header">
+                {{ week.title }}
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="accordion-content">
+                <div class="word-list">
+                    {% for word in week.words %}
+                    <div class="word-card">
+                        <div class="zulu-word">{{ word.zulu }}</div>
+                        <div class="english-meaning">{{ word.english }}</div>
+                        {% if word.pronunciation %}
+                        <div class="pronunciation">
+                            <small>Pronunciation: {{ word.pronunciation }}</small>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="notes-section">
+        <h3><i class="fas fa-lightbulb"></i> Notes</h3>
+        <ul>
+            <li>Both <strong>"sawubona"</strong> and <strong>"sanibona"</strong> include the word "bona", with the difference in their prefixes ("sawu" and "sani")</li>
+            <li>The word <strong>"nami"</strong> means <strong>"me too"</strong></li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

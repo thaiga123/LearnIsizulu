@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Test 4{% endblock %}
+
+{% block content %}
+<section class="test-container">
+    <h1 class="page-title">Test 4: Personal Introductions</h1>
+
+    <form action="{{ url_for('test_4') }}" method="POST" class="test-form">
+        {% set questions = [
+            "What is your name?",
+            "My name is AJ.",
+            "Where are you from?",
+            "I am from Britstown.",
+            "It's good",
+            "It's not good"
+        ] %}
+
+        {% for question in questions %}
+        <div class="form-group">
+            <label for="question-{{ loop.index }}">{{ loop.index }}. {{ question }}</label>
+            <input type="text" id="question-{{ loop.index }}" name="question-{{ loop.index }}" 
+                   class="form-control" required
+                   {% if user_answers is defined and user_answers|length > loop.index0 %}
+                   value="{{ user_answers[loop.index0] }}"
+                   {% endif %}>
+        </div>
+        {% endfor %}
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-submit">Submit Answers</button>
+            {% if score is defined and score is not none %}
+            <div class="score-display {% if score >= 4 %}score-good{% else %}score-bad{% endif %}">
+                Score: {{ score }}/{{ questions|length }}
+            </div>
+            {% endif %}
+        </div>
+    </form>
+
+    {% if score is defined and score is not none %}
+    <div class="test-feedback">
+        <h3>Feedback:</h3>
+        {% if score >= 4 %}
+        <p class="feedback-good">Excellent! You're getting the hang of introductions in IsiZulu.</p>
+        {% else %}
+        <p class="feedback-improve">You're on the right track! Keep practicing and review your notes.</p>
+        {% endif %}
+        <a href="{{ url_for('dictionary') }}" class="btn btn-review">
+            <i class="fas fa-book"></i> Review Dictionary
+        </a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}
