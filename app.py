@@ -76,6 +76,5 @@ def test_4():
     ]
     return validate_test(questions, answers, 'test-4.html', "Test 4")
 
-# Run the app
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=80)
