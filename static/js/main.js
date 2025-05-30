@@ -10,11 +10,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Close mobile menu when clicking a link
     document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
+    link.addEventListener('click', (e) => {
+        const parent = link.parentElement;
+        // Only close the nav if it's NOT a dropdown
+        if (!parent.classList.contains('dropdown')) {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
-        });
+        }
     });
+});
+
     
     // Accordion functionality for dictionary
     const accordionHeaders = document.querySelectorAll('.accordion-header');
